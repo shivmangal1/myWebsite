@@ -1,0 +1,48 @@
+export const coursePlans = [
+  {
+    name: 'Harmonic Patterns',
+    discount: '50% Off',
+    oldPrice: 'Rs. 20,000',
+    price: 'Rs. 9999',
+    features: [
+      '20+ Hours Content',
+      'Everything from scratch',
+      'Basics of F&O & Greeks',
+      'Harmonic Reversal Strategy',
+      'Supply-Demand Strategy',
+      'The Wealth Wheel Strategy',
+    ],
+  },
+  {
+    name: 'Price Action',
+    discount: '45% Off',
+    oldPrice: 'Rs. 17,999',
+    price: 'Rs. 9,999',
+    features: [
+      '30+ Hours Recorded Content',
+      'Scratch to advance',
+      '48 Price Action strategies',
+      'Price - Volume Analysis',
+      'Momentum Trading (My Fav.)',
+      'Pullback & Reversal Trading',
+      'Free Scanners for stock selection',
+      'Risk and Money Management',
+    ],
+  },
+  {
+    name: 'Hedging',
+    discount: '20% Off',
+    oldPrice: 'Rs. 49,999',
+    price: 'Rs. 39,999',
+    features: [
+      '90+ Hours Recorded Content',
+      '15 Zero Adjustment strategies',
+      'Saturday trade review session',
+      'Sunday doubt session',
+      'Indepth Data Reading',
+      'All Hedging Strategies',
+      'Portfolio Hedging',
+      'Leap Year Setups',
+    ],
+  },
+];
