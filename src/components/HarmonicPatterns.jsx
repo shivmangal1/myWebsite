@@ -1,36 +1,37 @@
-const harmonicPatterns = [
-  {
-    symbol: 'GARTLEY',
-    name: 'Classic Reversal',
-    ratio: '0.786 PRZ',
-    bias: 'Bullish',
-    timeframe: 'XA-AB-BC-CD',
-    url: '#',
-  },
-  {
-    symbol: 'BAT',
-    name: 'Deep Retracement',
-    ratio: '0.886 PRZ',
-    bias: 'Bullish',
-    timeframe: 'AB=CD Focus',
-    url: '#',
-  },
-  {
-    symbol: 'BUTTERFLY',
-    name: 'Extension Reversal',
-    ratio: '1.272 XA',
-    bias: 'Bearish',
-    timeframe: 'Expansion Zone',
-    url: '#',
-  },
-  {
-    symbol: 'CRAB',
-    name: 'Extreme Completion',
-    ratio: '1.618 XA',
-    bias: 'Bearish',
-    timeframe: 'High Volatility',
-    url: '#',
-  },
+import harmonic1 from '../assets/images/harmonic/harmonic-1.png';
+import harmonic2 from '../assets/images/harmonic/harmonic-2.png';
+import harmonic3 from '../assets/images/harmonic/harmonic-3.png';
+import harmonic4 from '../assets/images/harmonic/harmonic-4.png';
+
+const harmonicImages = [
+  { src: harmonic1, alt: 'AB=CD Harmonic Pattern' },
+  { src: harmonic2, alt: 'Reciprocal AB=CD Harmonic Pattern' },
+  { src: harmonic3, alt: '5-Point XABCD Harmonic Patterns' },
+  { src: harmonic4, alt: 'Potential Reversal Zone — PRZ' },
+];
+
+const fibonacciTopics = [
+  'Introduction to Fibonacci Series',
+  'Fibonacci Ratio',
+  'Derived Ratio',
+  'How to plot Fibonacci Lines on a chart',
+  'Fibonacci Retracement and Extension',
+];
+
+const fourPointHarmonics = ['AB=CD Harmonic Pattern', 'Reciprocal AB=CD Pattern'];
+
+const fivePointHarmonics = [
+  'BAT Harmonic Pattern',
+  'GARTLEY Harmonic Pattern',
+  'BUTTERFLY Harmonic Pattern',
+  'CRAB Harmonic Pattern',
+  'CYPHER Harmonic Pattern',
+  'SHARK Harmonic Pattern',
+];
+
+const riskAndExecutionTopics = [
+  'Understanding the Potential Reversal Zone (PRZ)',
+  'Pattern Failure Protection',
 ];
 
 function HarmonicPatterns() {
@@ -49,27 +50,51 @@ function HarmonicPatterns() {
         </p>
       </div>
 
-      <div className="recommendation-grid harmonic-grid">
-        {harmonicPatterns.map((pattern) => (
-          <article key={pattern.symbol} className="recommendation-card harmonic-card">
-            <div className="card-symbol">
-              <div className="symbol-ring">{pattern.symbol.slice(0, 1)}</div>
-              <div>
-                <p>{pattern.symbol}</p>
-                <span>{pattern.name}</span>
-              </div>
-            </div>
-            <div className="price-row">
-              <strong>{pattern.ratio}</strong>
-              <span className={`price-change ${pattern.bias === 'Bullish' ? 'positive' : 'negative'}`}>
-                {pattern.bias}
-              </span>
-            </div>
-            <div className="chart-meta">
-              <span>{pattern.timeframe}</span>
-              <a href={pattern.url}>View Structure</a>
-            </div>
-          </article>
+      <div className="harmonic-curriculum">
+        <article className="harmonic-syllabus-card">
+          <h3>Introduction to Fibonacci</h3>
+          <ul>
+            {fibonacciTopics.map((topic) => (
+              <li key={topic}>{topic}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="harmonic-syllabus-card">
+          <h3>Harmonic Patterns</h3>
+
+          <div className="harmonic-subgroup">
+            <h4>1. 4-Point Harmonics</h4>
+            <ul>
+              {fourPointHarmonics.map((pattern) => (
+                <li key={pattern}>{pattern}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="harmonic-subgroup">
+            <h4>2. 5-Point Harmonics (XABCD Pattern)</h4>
+            <ul>
+              {fivePointHarmonics.map((pattern) => (
+                <li key={pattern}>{pattern}</li>
+              ))}
+            </ul>
+          </div>
+
+          <ul className="harmonic-risk-list">
+            {riskAndExecutionTopics.map((topic) => (
+              <li key={topic}>{topic}</li>
+            ))}
+          </ul>
+        </article>
+      </div>
+
+      <div className="harmonic-image-grid">
+        {harmonicImages.map((img) => (
+          <div key={img.alt} className="harmonic-image-card">
+            <img src={img.src} alt={img.alt} />
+            <p className="harmonic-image-label">{img.alt}</p>
+          </div>
         ))}
       </div>
     </section>

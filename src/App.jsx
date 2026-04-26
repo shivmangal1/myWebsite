@@ -291,14 +291,46 @@ function CoursesPage() {
 
               <div className="chart-meta">
                 <span style={{ textDecoration: 'line-through' }}>{plan.oldPrice}</span>
-                <span>{plan.features.length}+ lessons</span>
+                {plan.curriculum ? (
+                  <span>Full Syllabus</span>
+                ) : (
+                  <span>{plan.features.length}+ lessons</span>
+                )}
               </div>
 
-              <ul className="course-feature-list">
-                {plan.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
+              {plan.curriculum ? (
+                <div className="course-curriculum">
+                  {plan.curriculum.map((section) => (
+                    <div key={section.heading} className="course-curriculum-section">
+                      <p className="course-curriculum-heading">{section.heading}</p>
+                      {section.items && (
+                        <ul className="course-feature-list">
+                          {section.items.map((item) => <li key={item}>{item}</li>)}
+                        </ul>
+                      )}
+                      {section.groups && section.groups.map((group) => (
+                        <div key={group.label} className="course-curriculum-group">
+                          <p className="course-curriculum-group-label">{group.label}</p>
+                          <ul className="course-feature-list course-feature-list--sub">
+                            {group.items.map((item) => <li key={item}>{item}</li>)}
+                          </ul>
+                        </div>
+                      ))}
+                      {section.extras && (
+                        <ul className="course-feature-list course-curriculum-extras">
+                          {section.extras.map((item) => <li key={item}>{item}</li>)}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ul className="course-feature-list">
+                  {plan.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+              )}
 
               <div className="course-cta-row">
                 <button
