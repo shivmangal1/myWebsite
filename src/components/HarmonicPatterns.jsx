@@ -2,12 +2,14 @@ import harmonic1 from '../assets/images/harmonic/harmonic-1.png';
 import harmonic2 from '../assets/images/harmonic/harmonic-2.png';
 import harmonic3 from '../assets/images/harmonic/harmonic-3.png';
 import harmonic4 from '../assets/images/harmonic/harmonic-4.png';
+import harmonic5 from '../assets/images/harmonic/harmonic-5.png';
 
 const harmonicImages = [
   { src: harmonic1, alt: 'AB=CD Harmonic Pattern' },
   { src: harmonic2, alt: 'Reciprocal AB=CD Harmonic Pattern' },
   { src: harmonic3, alt: '5-Point XABCD Harmonic Patterns' },
   { src: harmonic4, alt: 'Potential Reversal Zone — PRZ' },
+  { src: harmonic5, alt: '5-0 Harmonic Pattern' },
 ];
 
 const fibonacciTopics = [
