@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Link, NavLink, Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { Link, NavLink, Navigate, Outlet, Route, Routes, useLocation, useOutletContext } from 'react-router-dom';
 import shivImage from './assets/images/shiv.jpg';
 import HarmonicPatterns from './components/HarmonicPatterns.jsx';
 import YoutubeCarousel from './components/YoutubeCarousel.jsx';
 import ContactSection from './components/ContactSection.jsx';
 import PaymentModal from './components/PaymentModal.jsx';
+import RegisterCheckoutPreview from './components/RegisterCheckoutPreview.jsx';
 import { navItems } from './data/navItems.js';
 import { feedbackImages } from './data/feedbackImages.js';
 import { coursePlans } from './data/coursePlans.js';
 import { recommendations } from './data/recommendations.js';
+
+const PerformanceWorkbookPage = lazy(() => import('./components/PerformanceWorkbookPage.jsx'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -21,6 +24,28 @@ function ScrollToTop() {
 }
 
 function SiteLayout() {
+  const [isRegisterPreviewOpen, setIsRegisterPreviewOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState('');
+
+  const handleOpenRegisterPreview = () => {
+    setIsRegisterPreviewOpen(true);
+  };
+
+  const handleCloseRegisterPreview = () => {
+    setIsRegisterPreviewOpen(false);
+  };
+
+  const handleOpenPaymentModal = (planName = 'Financial Freedom Webinar') => {
+    setSelectedPlan(planName);
+    setIsPaymentModalOpen(true);
+  };
+
+  const handleClosePaymentModal = () => {
+    setIsPaymentModalOpen(false);
+    setSelectedPlan('');
+  };
+
   return (
     <div className="page-shell">
       <header className="site-header">
@@ -49,7 +74,31 @@ function SiteLayout() {
         </nav>
       </header>
 
-      <Outlet />
+      <Outlet context={{ openPaymentModal: handleOpenPaymentModal }} />
+
+      <button
+        type="button"
+        className="register-btn-fixed"
+        onClick={handleOpenRegisterPreview}
+      >
+        <span className="register-btn-main">Register NOW &mdash; <s>&#8377;5000</s> &#8377;97</span>
+        <span className="register-btn-sub">Sunday 18 May at 10:00 AM</span>
+      </button>
+
+      <RegisterCheckoutPreview
+        isOpen={isRegisterPreviewOpen}
+        onClose={handleCloseRegisterPreview}
+        onPay={() => {
+          handleCloseRegisterPreview();
+          handleOpenPaymentModal('Financial Freedom Webinar');
+        }}
+      />
+
+      <PaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={handleClosePaymentModal}
+        planName={selectedPlan}
+      />
 
       <footer className="site-footer">
         <div>
@@ -80,7 +129,7 @@ function HomePage() {
             Build confidence with clean data, clear navigation, and bold market storytelling.
           </p>
           <div className="hero-actions">
-            <Link className="primary-btn" to="/courses">View My Work</Link>
+            <Link className="primary-btn" to="/view-my-work">View My Work</Link>
             <Link className="secondary-btn" to="/contact">Get In Touch</Link>
           </div>
         </section>
@@ -209,10 +258,28 @@ function RecommendationsPage() {
         <p className="eyebrow">TradingView Picks</p>
         <h2>Recommendations</h2>
       </div>
-      <div className="rec-chart-grid">
-        {recommendations.map((item) => (
-          <RecChartCard key={item.name} item={item} />
-        ))}
+
+      <div className="recommendation-data-grid-wrap">
+        <table className="recommendation-data-grid">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recommendations.map((item, index) => (
+              <tr key={`${item.name}-${index}`}>
+                <td>{item.name}</td>
+                <td>
+                  <a href={item.url} target="_blank" rel="noreferrer" title={item.url}>
+                    {item.url}
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </section>
   );
@@ -252,18 +319,7 @@ function YoutubePage() {
 }
 
 function CoursesPage() {
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState('');
-
-  const handleOpenPaymentModal = (planName) => {
-    setSelectedPlan(planName);
-    setIsPaymentModalOpen(true);
-  };
-
-  const handleClosePaymentModal = () => {
-    setIsPaymentModalOpen(false);
-    setSelectedPlan('');
-  };
+  const { openPaymentModal } = useOutletContext();
 
   return (
     <>
@@ -337,7 +393,7 @@ function CoursesPage() {
                   type="button"
                   className="primary-btn"
                   style={{ width: '100%' }}
-                  onClick={() => handleOpenPaymentModal(plan.name)}
+                  onClick={() => openPaymentModal(plan.name)}
                 >
                   Enroll Now
                 </button>
@@ -347,11 +403,6 @@ function CoursesPage() {
         </div>
       </section>
 
-      <PaymentModal
-        isOpen={isPaymentModalOpen}
-        onClose={handleClosePaymentModal}
-        planName={selectedPlan}
-      />
     </>
   );
 }
@@ -366,6 +417,14 @@ function App() {
           <Route path="harmonic-patterns" element={<HarmonicPatterns />} />
           <Route path="testimonials" element={<TestimonialsPage />} />
           <Route path="recommendations" element={<RecommendationsPage />} />
+          <Route
+            path="view-my-work"
+            element={(
+              <Suspense fallback={<section className="performance-page"><p className="performance-status">Loading workbook page...</p></section>}>
+                <PerformanceWorkbookPage />
+              </Suspense>
+            )}
+          />
           <Route path="courses" element={<CoursesPage />} />
           <Route path="youtube" element={<YoutubePage />} />
           <Route path="contact" element={<ContactSection />} />

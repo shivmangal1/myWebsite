@@ -3,7 +3,7 @@ export const coursePlans = [
     name: 'Harmonic Patterns',
     discount: '50% Off',
     oldPrice: 'Rs. 20,000',
-    price: 'Rs. 9999',
+    price: 'Rs. 10,000',
     curriculum: [
       {
         heading: 'Introduction to Fibonacci Series',
@@ -43,7 +43,7 @@ export const coursePlans = [
   {
     name: 'Supply and Demand',
     discount: '50% Off',
-    oldPrice: 'Rs. 17,999',
+    oldPrice: 'Rs. 40,000',
     price: 'Rs. 20,000',
     curriculum: [
       {
