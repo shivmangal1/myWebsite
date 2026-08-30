@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { formatWebinarDate } from '../utils/nextSunday.js';
 
 function RegisterCheckoutPreview({ isOpen, onClose, onPay }) {
   const [formValues, setFormValues] = useState({
@@ -113,7 +114,7 @@ function RegisterCheckoutPreview({ isOpen, onClose, onPay }) {
           <span className="checkout-preview-line" aria-hidden="true" />
 
           <p>
-            Webinar on Sunday at 10:00 AM IST : Achieve Financial Freedom through proven strategies.
+            Webinar on {formatWebinarDate()} IST : Achieve Financial Freedom through proven strategies.
             Learn directly from Shiv Singh.
           </p>
 

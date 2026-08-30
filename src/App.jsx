@@ -10,6 +10,7 @@ import { navItems } from './data/navItems.js';
 import { feedbackImages } from './data/feedbackImages.js';
 import { coursePlans } from './data/coursePlans.js';
 import { recommendations } from './data/recommendations.js';
+import { formatWebinarDate } from './utils/nextSunday.js';
 
 const PerformanceWorkbookPage = lazy(() => import('./components/PerformanceWorkbookPage.jsx'));
 
@@ -82,7 +83,7 @@ function SiteLayout() {
         onClick={handleOpenRegisterPreview}
       >
         <span className="register-btn-main">Register NOW &mdash; <s>&#8377;5000</s> &#8377;97</span>
-        <span className="register-btn-sub">Sunday 18 May at 10:00 AM</span>
+        <span className="register-btn-sub">{formatWebinarDate()}</span>
       </button>
 
       <RegisterCheckoutPreview
